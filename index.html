@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DonatKu.u - Iklan Animasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            overflow: hidden;
+        }
+
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scene.active {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Animations */
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes rotate360 {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px #ffd700, 0 0 40px #ffed4e; }
+            50% { box-shadow: 0 0 40px #ffd700, 0 0 60px #ffed4e; }
+        }
+
+        @keyframes steam {
+            0% { transform: translateY(0) scale(1); opacity: 0.7; }
+            100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        .animate-zoom {
+            animation: slowZoom 5s ease-in-out infinite alternate;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-rotate {
+            animation: rotate360 10s linear infinite;
+        }
+
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .steam {
+            position: absolute;
+            top: -20px;
+            width: 10px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: steam 3s ease-in-out infinite;
+        }
+
+        .steam:nth-child(2) { left: 40%; animation-delay: 0.5s; }
+        .steam:nth-child(3) { left: 60%; animation-delay: 1s; }
+
+        .bg-park {
+            background-image: url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .bg-park::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(255, 165, 0, 0.3), rgba(255, 215, 0, 0.1));
+        }
+
+        .brochure {
+            background: linear-gradient(145deg, #fff8e1, #ffecb3);
+            transform-style: preserve-3d;
+            animation: sparkle 1s ease-out forwards, float 4s ease-in-out infinite;
+            animation-delay: 0s, 1s;
+        }
+
+        .price-tag {
+            background: linear-gradient(45deg, #ff4757, #ff3838);
+            transform: rotate(-10deg);
+            box-shadow: 0 10px 20px rgba(255, 56, 56, 0.4);
+        }
+
+        .bite-effect {
+            position: relative;
+        }
+        
+        .bite-mark {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: #f3d4a8;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease-out;
+        }
+
+        .bite-effect.bitten .bite-mark {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="h-screen flex items-center justify-center">
+
+    <div class="relative w-full max-w-sm h-[600px] bg-black rounded-3xl shadow-2xl overflow-hidden border-8 border-gray-800">
+
+        <!-- SCENE 1: OPENING HOOK -->
+        <div id="scene1" class="scene active bg-gradient-to-br from-amber-900 to-orange-900">
+            <div class="relative w-64 h-64">
+                <div class="steam"></div>
+                <div class="steam"></div>
+                <div class="steam"></div>
+                <img src="https://i.imgur.com/placeholder.jpg" alt="Donat Coklat" 
+                     class="w-full h-full object-cover rounded-full animate-zoom animate-glow shadow-2xl">
+            </div>
+            <h1 class="text-white text-4xl font-black mt-8 tracking-wider">DONATKU.U</h1>
+            <p class="text-amber-300 text-lg mt-2">Lumer di Mulut, Manis di Hati</p>
+        </div>
+
+        <!-- SCENE 2: VARIAN PRODUK -->
+        <div id="scene2" class="scene bg-gradient-to-b from-amber-100 to-orange-100">
+            <div class="flex gap-6 items-center">
+                <div class="w-32 h-32 animate-float animate-rotate">
+                    <img src="https://i.imgur.com/placeholder.jpg" alt="Coklat" class="w-full h-full object-cover rounded-full shadow-lg">
+                    <p class="text-center mt-2 font-bold text-gray-800">Choco Sprinkle</p>
+                </div>
+                <div class="w-32 h-32 animate-float animate-rotate" style="animation-delay: 0.5s;">
+                    <div class="w-full h-full bg-amber-200 rounded-full shadow-lg flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 to-yellow-400"></div>
+                        <div class="relative z-10 text-4xl">🧀</div>
+                    </div>
+                    <p class="text-center mt-2 font-bold text-gray-800">Cheese Premium</p>
+                </div>
+            </div>
+            <p class="mt-10 text-xl text-gray-700 font-semibold">Pilih Favoritmu! ✨</p>
+        </div>
+
+        <!-- SCENE 3: TAMAN BERMAIN -->
+        <div id="scene3" class="scene bg-park">
+            <div class="relative z-10 text-center px-6">
+                <div class="bite-effect w-40 h-40 mx-auto mb-6" id="biteDonut">
+                    <div class="bite-mark"></div>
+                    <img src="https://i.imgur.com/placeholder.jpg" alt="Donat" class="w-full h-full object-cover rounded-full shadow-xl">
+                </div>
+                <h2 class="text-3xl font-bold text-white drop-shadow-lg">Nikmatnya...</h2>
+                <p class="text-white text-lg mt-2 drop-shadow-md">Empuk, lembut, bikin nagih!</p>
+            </div>
+        </div>
+
+        <!-- SCENE 4: BROCHURE / PROMO -->
+        <div id="scene4" class="scene bg-gradient-to-br from-blue-900/50 to-purple-900/50">
+            <div class="brochure w-72 h-96 rounded-3xl shadow-2xl p-8 text-center relative">
+                <div class="absolute -top-4 -right-4 price-tag px-6 py-2 rounded-full">
+                    <span class="text-white font-bold text-xl">HOT!</span>
+                </div>
+                
+                <h1 class="text-4xl font-black text-orange-600 mb-2">DONATKU.U</h1>
+                <div class="w-16 h-1 bg-orange-500 mx-auto mb-6 rounded-full"></div>
+                
+                <p class="text-gray-700 text-lg mb-6">Donat Enak & Fresh Setiap Hari</p>
+                
+                <div class="bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl py-4 px-6 mb-6">
+                    <p class="text-white text-sm">HARGA MULAI</p>
+                    <p class="text-white text-5xl font-black">Rp 2.000</p>
+                </div>
+
+                <div class="space-y-3 text-left text-sm text-gray-600">
+                    <div class="flex items-center gap-2">
+                        <i class="fa fa-check-circle text-green-500"></i>
+                        <span>Bisa Cash & Non-Tunai</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa fa-motorcycle text-blue-500"></i>
+                        <span>COD Tersedia</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa fa-star text-yellow-500"></i>
+                        <span>Kualitas Terjamin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 5: CLOSING -->
+        <div id="scene5" class="scene bg-gradient-to-br from-amber-500 to-orange-600">
+            <div class="w-64 h-64 relative">
+                <img src="https://i.imgur.com/placeholder.jpg" alt="Box Donat" class="w-full animate-float rounded-2xl shadow-2xl">
+            </div>
+            <h1 class="text-white text-5xl font-black mt-8">DONATKU.U</h1>
+            <p class="text-amber-100 text-xl mt-2">Enak gak bikin kantong kering! 🤎</p>
+            
+            <button class="mt-8 bg-white text-orange-600 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-transform">
+                ORDER SEKARANG!
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // Ganti dengan URL gambar asli kamu ya!
+        const imageUrl = 'https://i.imgur.com/7Z7Z7Z7.jpg'; 
+        // Atau pakai gambar lokal: 'namafile.jpg'
+        
+        document.querySelectorAll('img').forEach(img => {
+            if(img.src.includes('placeholder')) {
+                img.src = imageUrl;
+            }
+        });
+
+        // Logic Pergantian Scene
+        const scenes = document.querySelectorAll('.scene');
+        let currentScene = 0;
+
+        function showScene(index) {
+            scenes.forEach(s => s.classList.remove('active'));
+            scenes[index].classList.add('active');
+            
+            // Trigger efek gigitan di scene 3
+            if(index === 2) {
+                setTimeout(() => {
+                    document.getElementById('biteDonut').classList.add('bitten');
+                }, 1000);
+            }
+        }
+
+        // Auto play sequence
+        const interval = setInterval(() => {
+            currentScene++;
+            if(currentScene >= scenes.length) {
+                currentScene = 0;
+            }
+            showScene(currentScene);
+        }, 5000); // Ganti scene setiap 5 detik
+
+        // Start
+        showScene(0);
+    </script>
+
+</body>
+</html>
+
+ss="hero-bg-circle c2"></div>
+  <div class="hero-tag">🍩 Donat Segar Setiap Hari</div>
+  <h1>Donatku.<span>Uangku</span></h1>
+  <p class="hero-sub">Donat lembut, topping melimpah, harga bersahabat.</p>
+ 
+  <!-- Animated donuts in hero -->
+  <div class="donut-float-container">
+    <!-- Chocolate donut SVG -->
+    <div class="donut-anim" title="Donat Coklat">
+      <svg class="donut-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Donut body -->
+        <circle cx="80" cy="80" r="68" fill="#f5c27a"/>
+        <circle cx="80" cy="80" r="68" fill="none" stroke="#e8a84a" stroke-width="2"/>
+        <!-- Chocolate glaze -->
+        <clipPath id="c1"><circle cx="80" cy="80" r="68"/></clipPath>
+        <circle cx="80" cy="80" r="68" fill="#3b1a0a" clip-path="url(#c1)"/>
+        <!-- Glaze drip -->
+        <path d="M30 60 Q20 90 28 110 Q50 155 80 155 Q110 155 132 110 Q140 90 130 60 Q110 40 80 40 Q50 40 30 60Z" fill="#5c2d0a"/>
+        <!-- Hole -->
+        <circle cx="80" cy="80" r="28" fill="#f5c27a"/>
+        <circle cx="80" cy="80" r="28" fill="none" stroke="#e8a84a" stroke-width="1.5"/>
+        <!-- Sprinkles -->
+        <g class="sprinkle-ring">
+          <rect x="56" y="33" width="10" height="4" rx="2" fill="#fff" transform="rotate(20 61 35)"/>
+          <rect x="100" y="40" width="10" height="4" rx="2" fill="#c0392b" transform="rotate(-30 105 42)"/>
+          <rect x="120" y="70" width="10" height="4" rx="2" fill="#fff" transform="rotate(10 125 72)"/>
+          <rect x="110" y="110" width="10" height="4" rx="2" fill="#f39c12" transform="rotate(40 115 112)"/>
+          <rect x="65" y="125" width="10" height="4" rx="2" fill="#fff" transform="rotate(-20 70 127)"/>
+          <rect x="30" y="110" width="10" height="4" rx="2" fill="#c0392b" transform="rotate(15 35 112)"/>
+          <rect x="20" y="70" width="10" height="4" rx="2" fill="#f39c12" transform="rotate(-40 25 72)"/>
+          <rect x="40" y="42" width="10" height="4" rx="2" fill="#fff" transform="rotate(35 45 44)"/>
+        </g>
+        <!-- Shine -->
+        <ellipse cx="60" cy="58" rx="14" ry="7" fill="rgba(255,255,255,0.12)" transform="rotate(-30 60 58)"/>
+      </svg>
+    </div>
+    <!-- Cheese donut SVG -->
+    <div class="donut-anim" title="Donat Keju">
+      <svg class="donut-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Donut body -->
+        <circle cx="80" cy="80" r="68" fill="#f5c27a"/>
+        <circle cx="80" cy="80" r="68" fill="none" stroke="#e8a84a" stroke-width="2"/>
+        <!-- Butter glaze -->
+        <clipPath id="c2"><circle cx="80" cy="80" r="68"/></clipPath>
+        <circle cx="80" cy="80" r="68" fill="#f9e08a" clip-path="url(#c2)"/>
+        <path d="M30 60 Q20 90 28 110 Q50 155 80 155 Q110 155 132 110 Q140 90 130 60 Q110 40 80 40 Q50 40 30 60Z" fill="#f5d050"/>
+        <!-- Grated cheese texture -->
+        <g opacity="0.9">
+          <rect x="44" y="44" width="14" height="4" rx="2" fill="#fffde0" transform="rotate(20 51 46)"/>
+          <rect x="62" y="36" width="12" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(-15 68 37.5)"/>
+          <rect x="82" y="34" width="16" height="4" rx="2" fill="#fffde0" transform="rotate(8 90 36)"/>
+          <rect x="100" y="40" width="13" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(30 106 42)"/>
+          <rect x="116" y="54" width="14" height="4" rx="2" fill="#fffde0" transform="rotate(-10 123 56)"/>
+          <rect x="122" y="72" width="12" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(20 128 73.5)"/>
+          <rect x="118" y="92" width="14" height="4" rx="2" fill="#fffde0" transform="rotate(-25 125 94)"/>
+          <rect x="106" y="110" width="13" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(15 112 112)"/>
+          <rect x="86" y="122" width="16" height="4" rx="2" fill="#fffde0" transform="rotate(-8 94 124)"/>
+          <rect x="65" y="124" width="14" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(20 72 125.5)"/>
+          <rect x="44" y="116" width="12" height="4" rx="2" fill="#fffde0" transform="rotate(-20 50 118)"/>
+          <rect x="30" y="99" width="13" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(10 36 100)"/>
+          <rect x="26" y="78" width="14" height="4" rx="2" fill="#fffde0" transform="rotate(30 33 80)"/>
+          <rect x="30" y="57" width="12" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(-15 36 58.5)"/>
+          <!-- Inner ring -->
+          <rect x="55" y="55" width="11" height="3.5" rx="1.8" fill="#fffde0" transform="rotate(15 60 56.5)"/>
+          <rect x="72" y="50" width="13" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(-10 78 51.5)"/>
+          <rect x="92" y="54" width="11" height="3.5" rx="1.8" fill="#fffde0" transform="rotate(25 97 55.5)"/>
+          <rect x="104" y="68" width="11" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(-5 109 70)"/>
+          <rect x="102" y="88" width="12" height="3.5" rx="1.8" fill="#fffde0" transform="rotate(20 108 90)"/>
+          <rect x="88" y="103" width="11" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(-15 93 105)"/>
+          <rect x="68" y="106" width="12" height="3.5" rx="1.8" fill="#fffde0" transform="rotate(10 74 108)"/>
+          <rect x="52" y="95" width="11" height="3.5" rx="1.8" fill="#ffe97a" transform="rotate(30 57 97)"/>
+          <rect x="48" y="75" width="11" height="3.5" rx="1.8" fill="#fffde0" transform="rotate(-20 53 77)"/>
+        </g>
+        <!-- Hole -->
+        <circle cx="80" cy="80" r="28" fill="#f5c27a"/>
+        <circle cx="80" cy="80" r="28" fill="none" stroke="#e8a84a" stroke-width="1.5"/>
+        <!-- Shine -->
+        <ellipse cx="60" cy="58" rx="14" ry="7" fill="rgba(255,255,255,0.2)" transform="rotate(-30 60 58)"/>
+      </svg>
+    </div>
+  </div>
+ 
+  <div class="price-badges">
+    <div class="price-badge">
+      <span class="emoji">🍫</span>
+      <div class="name">Donat Coklat</div>
+      <div class="price">Rp 2.000</div>
+    </div>
+    <div class="price-badge">
+      <span class="emoji">🧀</span>
+      <div class="name">Donat Keju</div>
+      <div class="price">Rp 2.000</div>
+    </div>
+  </div>
+ 
+  <a href="#pesan" class="hero-cta" style="margin-top:36px">🛒 Pesan Sekarang</a>
+</section>
+ 
+<!-- PRODUCTS -->
+<section id="produk">
+  <div class="section-label">Menu Kami</div>
+  <h2 class="section-title">Pilihan Donat</h2>
+  <p class="section-sub">Dibuat fresh setiap hari, lembut di dalam, penuh topping di luar.</p>
+  <div class="product-grid">
+    <div class="product-card">
+      <span class="badge-new">Best Seller</span>
+      <img src="WhatsApp_Image_2026-06-22_at_6_22_32_PM.jpeg" alt="Donat Coklat" class="product-card-img" onerror="this.style.background='#3b1a0a';this.style.minHeight='200px'">
+      <div class="product-card-body">
+        <div class="product-card-name">🍫 Donat Coklat</div>
+        <p class="product-card-desc">Donat empuk dibalut glasir coklat tebal, ditaburi meses coklat berlimpah. Manisnya pas, bikin nagih!</p>
+        <div class="product-card-price">Rp 2.000 <span>/ pcs</span></div>
+        <button class="product-card-btn" onclick="window.open('https://wa.me/6281938743760?text=Saya+ingin+membeli+donat+coklat','_blank')">🛒 Pesan Sekarang</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="WhatsApp_Image_2026-06-22_at_6_22_32_PM.jpeg" alt="Donat Keju" class="product-card-img" style="object-position: right" onerror="this.style.background='#f5d050';this.style.minHeight='200px'">
+      <div class="product-card-body">
+        <div class="product-card-name">🧀 Donat Keju</div>
+        <p class="product-card-desc">Donat lembut dengan taburan keju parut yang lebat, perpaduan gurih dan manis yang memanjakan lidah.</p>
+        <div class="product-card-price">Rp 2.000 <span>/ pcs</span></div>
+        <button class="product-card-btn" onclick="window.open('https://wa.me/6281938743760?text=Saya+ingin+membeli+donat+keju','_blank')">🛒 Pesan Sekarang</button>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ANIMATION SHOWCASE -->
+<section id="animasi">
+  <div class="section-label" style="background:rgba(245,166,35,.2);color:var(--gold)">Varian Favorit</div>
+  <h2 class="section-title">Coklat vs Keju</h2>
+  <p class="section-sub">Dua varian terlezat, satu harga terjangkau. Mana favoritmu?</p>
+  <div class="anim-stage">
+    <!-- Big animated chocolate donut -->
+    <div class="big-donut">
+      <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="bc1"><circle cx="100" cy="100" r="85"/></clipPath>
+          <radialGradient id="chocGrad" cx="40%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#5c2d0a"/>
+            <stop offset="100%" stop-color="#2a0e03"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="85" fill="#f5c27a"/>
+        <circle cx="100" cy="100" r="85" fill="url(#chocGrad)" clip-path="url(#bc1)"/>
+        <path d="M38 78 Q25 115 35 138 Q63 195 100 195 Q137 195 165 138 Q175 115 162 78 Q138 50 100 50 Q62 50 38 78Z" fill="#3b1a0a" opacity="0.7"/>
+        <!-- Meses (sprinkles) -->
+        <g class="sprinkle-ring">
+          <rect x="70" y="40" width="16" height="5" rx="2.5" fill="#fff" transform="rotate(25 78 42)"/>
+          <rect x="95" y="35" width="14" height="5" rx="2.5" fill="#c0392b" transform="rotate(-15 102 37)"/>
+          <rect x="125" y="48" width="16" height="5" rx="2.5" fill="#fff" transform="rotate(35 133 50)"/>
+          <rect x="148" y="72" width="14" height="5" rx="2.5" fill="#f39c12" transform="rotate(-5 155 74)"/>
+          <rect x="152" y="100" width="16" height="5" rx="2.5" fill="#fff" transform="rotate(20 160 102)"/>
+          <rect x="138" y="132" width="14" height="5" rx="2.5" fill="#c0392b" transform="rotate(40 145 134)"/>
+          <rect x="108" y="153" width="16" height="5" rx="2.5" fill="#fff" transform="rotate(-25 116 155)"/>
+          <rect x="78" y="155" width="14" height="5" rx="2.5" fill="#f39c12" transform="rotate(10 85 157)"/>
+          <rect x="48" y="138" width="16" height="5" rx="2.5" fill="#fff" transform="rotate(30 56 140)"/>
+          <rect x="34" y="108" width="14" height="5" rx="2.5" fill="#c0392b" transform="rotate(-20 41 110)"/>
+          <rect x="40" y="76" width="16" height="5" rx="2.5" fill="#fff" transform="rotate(15 48 78)"/>
+        </g>
+        <circle cx="100" cy="100" r="34" fill="#f5c27a"/>
+        <circle cx="100" cy="100" r="34" fill="none" stroke="#e8a84a" stroke-width="2"/>
+        <ellipse cx="76" cy="72" rx="18" ry="9" fill="rgba(255,255,255,0.12)" transform="rotate(-30 76 72)"/>
+        <!-- Label -->
+        <text x="100" y="183" text-anchor="middle" font-family="Pacifico,cursive" font-size="13" fill="#f5a623">Coklat 🍫</text>
+      </svg>
+    </div>
+ 
+    <!-- VS badge -->
+    <div style="color:var(--gold);font-family:'Pacifico',cursive;font-size:2.5rem;align-self:center;padding:0 8px">VS</div>
+ 
+    <!-- Big animated cheese donut -->
+    <div class="big-donut" style="animation-delay:-1.4s">
+      <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="bc2"><circle cx="100" cy="100" r="85"/></clipPath>
+        </defs>
+        <circle cx="100" cy="100" r="85" fill="#f5c27a"/>
+        <circle cx="100" cy="100" r="85" fill="#f5d050" clip-path="url(#bc2)"/>
+        <path d="M38 78 Q25 115 35 138 Q63 195 100 195 Q137 195 165 138 Q175 115 162 78 Q138 50 100 50 Q62 50 38 78Z" fill="#e8b800" opacity="0.5"/>
+        <!-- Cheese strands -->
+        <g opacity="0.92">
+          <rect x="52" y="45" width="20" height="6" rx="3" fill="#fffde0" transform="rotate(20 62 48)"/>
+          <rect x="76" y="38" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(-15 85 40)"/>
+          <rect x="104" y="36" width="22" height="6" rx="3" fill="#fffde0" transform="rotate(8 115 39)"/>
+          <rect x="128" y="46" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(30 137 48)"/>
+          <rect x="148" y="64" width="20" height="6" rx="3" fill="#fffde0" transform="rotate(-10 158 67)"/>
+          <rect x="156" y="92" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(20 165 94)"/>
+          <rect x="150" y="120" width="20" height="6" rx="3" fill="#fffde0" transform="rotate(-25 160 123)"/>
+          <rect x="132" y="144" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(15 141 147)"/>
+          <rect x="106" y="156" width="22" height="6" rx="3" fill="#fffde0" transform="rotate(-8 117 159)"/>
+          <rect x="80" y="156" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(20 89 158)"/>
+          <rect x="54" y="144" width="18" height="6" rx="3" fill="#fffde0" transform="rotate(-20 63 147)"/>
+          <rect x="36" y="122" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(10 45 124)"/>
+          <rect x="28" y="94" width="20" height="6" rx="3" fill="#fffde0" transform="rotate(30 38 97)"/>
+          <rect x="36" y="64" width="18" height="5.5" rx="2.8" fill="#ffe97a" transform="rotate(-15 45 66)"/>
+          <!-- Inner -->
+          <rect x="68" y="62" width="16" height="5" rx="2.5" fill="#fffde0" transform="rotate(15 76 64)"/>
+          <rect x="90" y="56" width="18" height="5" rx="2.5" fill="#ffe97a" transform="rotate(-10 99 58)"/>
+          <rect x="118" y="60" width="16" height="5" rx="2.5" fill="#fffde0" transform="rotate(25 126 62)"/>
+          <rect x="136" y="78" width="16" height="5" rx="2.5" fill="#ffe97a" transform="rotate(-5 144 80)"/>
+          <rect x="136" y="108" width="18" height="5" rx="2.5" fill="#fffde0" transform="rotate(20 145 110)"/>
+          <rect x="118" y="128" width="16" height="5" rx="2.5" fill="#ffe97a" transform="rotate(-15 126 130)"/>
+          <rect x="90" y="136" width="18" height="5" rx="2.5" fill="#fffde0" transform="rotate(10 99 138)"/>
+          <rect x="64" y="126" width="16" height="5" rx="2.5" fill="#ffe97a" transform="rotate(30 72 128)"/>
+          <rect x="56" y="100" width="16" height="5" rx="2.5" fill="#fffde0" transform="rotate(-20 64 102)"/>
+        </g>
+        <circle cx="100" cy="100" r="34" fill="#f5c27a"/>
+        <circle cx="100" cy="100" r="34" fill="none" stroke="#e8a84a" stroke-width="2"/>
+        <ellipse cx="76" cy="72" rx="18" ry="9" fill="rgba(255,255,255,0.2)" transform="rotate(-30 76 72)"/>
+        <text x="100" y="183" text-anchor="middle" font-family="Pacifico,cursive" font-size="13" fill="#f5a623">Keju 🧀</text>
+      </svg>
+    </div>
+  </div>
+  <p style="color:#ffe0b2;margin-top:8px;font-size:.9rem">✨ Keduanya <strong style="color:var(--gold)">Rp 2.000</strong> saja per pcs!</p>
+</section>
+ 
+<!-- HOW TO ORDER -->
+<section id="cara">
+  <div class="section-label">Panduan</div>
+  <h2 class="section-title">Cara Memesan</h2>
+  <p class="section-sub">Pesan donatmu hanya dalam 3 langkah mudah!</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Isi Formulir</h3>
+      <p>Lengkapi nama, alamat, varian, dan jumlah pesanan kamu di bawah.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Kirim via WA</h3>
+      <p>Klik tombol "Pesan via WhatsApp" dan pesananmu otomatis terkirim.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Tunggu Konfirmasi</h3>
+      <p>Kami konfirmasi pesananmu dan donat segar segera disiapkan! 🍩</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- ORDER FORM -->
+<section id="pesan">
+  <div class="section-label">Formulir Pesanan</div>
+  <h2 class="section-title">Pesan Sekarang</h2>
+  <p class="section-sub">Isi data di bawah, lalu kami sambungkan ke WhatsApp kami.</p>
+  <div class="order-form">
+    <div class="form-group">
+      <label>👤 Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Masukkan nama kamu">
+    </div>
+    <div class="form-group">
+      <label>📍 Alamat Lengkap</label>
+      <textarea id="alamat" placeholder="Jl. Contoh No. 1, Kelurahan, Kecamatan, Kota..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>🍩 Varian</label>
+        <select id="varian">
+          <option value="">Pilih varian</option>
+          <option value="Coklat 🍫">Coklat 🍫</option>
+          <option value="Keju 🧀">Keju 🧀</option>
+          <option value="Campur (Coklat & Keju)">Campur (Coklat & Keju)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>🔢 Jumlah (Pcs)</label>
+        <input type="number" id="pcs" placeholder="Contoh: 10" min="1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>💬 Pertanyaan / Catatan</label>
+      <textarea id="pertanyaan" placeholder="Ada pertanyaan atau request khusus? Tulis di sini..."></textarea>
+    </div>
+    <button class="submit-btn" onclick="pesanWA()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Pesan via WhatsApp
+    </button>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🍩 Donatku.Uangku</div>
+  <p>Donat lembut, harga hemat, bikin kenyang dan senang!</p>
+  <p style="margin-top:8px">📱 <a href="tel:+6281938743760">+62 819-3874-3760</a></p>
+  <a href="https://wa.me/6281938743760" target="_blank" class="wa-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat WhatsApp
+  </a>
+  <p style="margin-top:24px;opacity:.5;font-size:.8rem">© 2026 Donatku.Uangku. All rights reserved.</p>
+</footer>
+ 
+<script>
+function pesanWA() {
+  const nama = document.getElementById('nama').value.trim();
+  const alamat = document.getElementById('alamat').value.trim();
+  const varian = document.getElementById('varian').value;
+  const pcs = document.getElementById('pcs').value.trim();
+  const pertanyaan = document.getElementById('pertanyaan').value.trim();
+ 
+  if (!nama || !alamat || !varian || !pcs) {
+    alert('Mohon lengkapi nama, alamat, varian, dan jumlah pcs terlebih dahulu.');
+    return;
+  }
+ 
+  const total = parseInt(pcs) * 2000;
+  const fmt = new Intl.NumberFormat('id-ID').format(total);
+ 
+  let msg = `Halo Donatku.Uangku! 🍩\n\nSaya ingin membeli donat ${varian}\n\n`;
+  msg += `📋 *Detail Pesanan:*\n`;
+  msg += `• Nama: ${nama}\n`;
+  msg += `• Alamat: ${alamat}\n`;
+  msg += `• Varian: ${varian}\n`;
+  msg += `• Jumlah: ${pcs} pcs\n`;
+  msg += `• Total: Rp ${fmt}\n`;
+  if (pertanyaan) msg += `\n💬 Catatan: ${pertanyaan}\n`;
+  msg += `\nMohon dikonfirmasi. Terima kasih! 🙏`;
+ 
+  const url = `https://wa.me/6281938743760?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+</script>
+</body>
+</html>
+wan..."
+              disabled={typing}
+              className="flex-1 px-4 py-2 rounded-full bg-[#FAF9F5] border border-black/5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7EC8E3] text-xs sm:text-sm transition-all"
+            />
+            <button
+              type="submit"
+              disabled={typing || !input.trim()}
+              className="w-9 h-9 rounded-full bg-[#1A2024] text-white flex items-center justify-center hover:bg-[#5AB2D6] hover:text-[#1A2024] transition-colors disabled:opacity-50"
+              aria-label="Kirim"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          </form>}
+        </div>
+      )}
+    </>
+  );
+rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Order function to replace alert and redirect to WA
+        function orderItem(itemName) {
+            const text = `Halo, saya tertarik untuk memesan *${itemName}* yang ada di website. Boleh info cara pesannya?`;
+            const encodedText = encodeURIComponent(text);
+            const url = `https://wa.me/${waNumber}?text=${encodedText}`;
+            
+            // Set URL to button
+            waLink.href = url;
+            
+            // Update text (optional)
+            document.getElementById('messageText').innerText = `Anda akan diarahkan ke WhatsApp untuk memesan ${itemName}.`;
+            
+            // Show modal safely
+            messageBox.classList.remove('hidden');
+            messageBox.classList.add('flex');
+            
+            // Small delay for fade in effect
+            setTimeout(() => {
+                messageBox.classList.remove('opacity-0');
+                messageBoxContent.classList.remove('scale-95');
+                messageBoxContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Close message box safely
+        function closeMessageBox() {
+            messageBox.classList.add('opacity-0');
+            messageBoxContent.classList.remove('scale-100');
+            messageBoxContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+                messageBox.classList.remove('flex');
+            }, 300); // match transition duration
+        }
+
+        // Close modal if clicked outside
+        messageBox.addEventListener('click', (e) => {
+            if (e.target === messageBox) {
+                closeMessageBox();
+            }
+        });
+    </script>
+</body>
+</html>
